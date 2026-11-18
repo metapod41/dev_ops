@@ -213,6 +213,7 @@ Environment variables are only read when a pod starts, so a restart is needed af
 | C1-1 | Git history with both branches and the `--no-ff` merge (`git log --oneline --graph --all`) | `screenshots/c1-1-git-history.png` |
 | C1-2 | Jenkins job configuration (Pipeline from SCM, Poll SCM) | `screenshots/c1-2-jenkins-config.png` |
 | C1-3 | Jenkins console output of a successful build | `screenshots/c1-3-console-output.png` |
+| C1-3b | Jenkins Stage View: every stage green | `screenshots/c1-3b-stage-view.png` |
 | C1-4 | Archived artifact `todo-api-<n>.tar.gz` on the build page | `screenshots/c1-4-artifact.png` |
 | C1-5 | Tests passing (Jenkins Test stage or `npm test`) | `screenshots/c1-5-tests-passing.png` |
 | C1-6 | GitHub Actions run (green) | `screenshots/c1-6-actions-run.png` |
