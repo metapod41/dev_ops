@@ -1,0 +1,13 @@
+# Keep the Docker build context small. __tests__ is NOT excluded because the
+# build stage runs npm test; the runtime stage copies only app files anyway.
+node_modules
+.git
+.github
+screenshots
+ansible
+artifacts
+coverage
+*.md
+*.tar.gz
+Jenkinsfile
+*.yaml

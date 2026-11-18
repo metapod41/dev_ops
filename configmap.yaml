@@ -1,0 +1,13 @@
+# Deployment enhancement: ConfigMap
+# Configuration lives outside the image. Pods load these as environment
+# variables (envFrom in deployment.yaml); GET /version shows APP_VERSION/APP_ENV.
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: todo-api-config
+  labels:
+    app: todo-api
+data:
+  PORT: "3000"
+  APP_ENV: "production"
+  APP_VERSION: "1.0.0"
