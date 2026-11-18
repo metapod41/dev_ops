@@ -1,0 +1,15 @@
+---
+galaxy_info:
+  role_name: node_app_setup
+  author: student
+  description: Install Node.js 18 and deploy todo-api as a systemd service
+  license: MIT
+  min_ansible_version: "2.12"
+  platforms:
+    - name: Ubuntu
+      versions: [jammy, noble]
+    - name: Debian
+      versions: [bookworm]
+  galaxy_tags: [nodejs, express, systemd]
+
+dependencies: []

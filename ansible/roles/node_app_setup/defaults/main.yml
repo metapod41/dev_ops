@@ -1,0 +1,9 @@
+---
+# Default variables for node_app_setup (lowest precedence, easy to override)
+app_port: 3000
+app_name: todo-api
+app_user: nodeapp
+app_dir: /opt/todo-api
+node_major_version: 18
+# Repository root (the folder that contains app.js), relative to the playbook
+artifact_src: "{{ playbook_dir }}/../"
