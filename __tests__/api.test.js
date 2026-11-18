@@ -108,6 +108,22 @@ describe('PATCH /todos/:id/toggle', () => {
 });
 
 // ============================================================================
+// GET /hello (feature branch endpoint)
+// ============================================================================
+describe('GET /hello', () => {
+  it('greets World by default', async () => {
+    const res = await request(app).get('/hello');
+    expect(res.statusCode).toBe(200);
+    expect(res.body.message).toBe('Hello, World!');
+  });
+
+  it('greets the given name', async () => {
+    const res = await request(app).get('/hello?name=Alice');
+    expect(res.body.message).toBe('Hello, Alice!');
+  });
+});
+
+// ============================================================================
 // GET /health and GET /version
 // ============================================================================
 describe('GET /health', () => {

@@ -33,6 +33,7 @@ app.get('/', (req, res) => {
       'GET /todos/:id': 'Get a single todo by ID',
       'POST /todos': 'Create a todo. Body: { "title": "..." }',
       'PATCH /todos/:id/toggle': 'Toggle the completed flag of a todo',
+      'GET /hello?name=': 'Friendly greeting',
       'GET /health': 'Health check (used by Kubernetes probes)',
       'GET /version': 'App version and environment (from ConfigMap)',
     },
@@ -86,6 +87,19 @@ app.patch('/todos/:id/toggle', (req, res) => {
     return res.status(404).json({ error: `Todo with id ${req.params.id} not found.` });
   }
   res.json(todo);
+});
+
+// ============================================================================
+// Routes — Feature: greeting (added on feature/hello-endpoint)
+// ============================================================================
+
+/**
+ * GET /hello?name=Alice
+ * Return a greeting. `name` is optional and defaults to "World".
+ */
+app.get('/hello', (req, res) => {
+  const name = req.query.name || 'World';
+  res.json({ message: `Hello, ${name}!` });
 });
 
 // ============================================================================
