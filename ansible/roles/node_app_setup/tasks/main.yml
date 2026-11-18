@@ -1,7 +1,7 @@
 ---
 # Tasks for node_app_setup: install Node.js, deploy todo-api, run it with systemd.
 
-# --- 1. Prerequisites -------------------------------------------------------
+# --- 1. Prerequisites ---------------------------
 - name: Install prerequisites (curl, ca-certificates, gnupg)
   ansible.builtin.apt:
     name: [curl, ca-certificates, gnupg]
@@ -9,7 +9,7 @@
     update_cache: yes
   when: ansible_os_family == "Debian"
 
-# --- 2. Node.js 18 from NodeSource ------------------------------------------
+# --- 2. Node.js 18 from NodeSource --------------
 - name: Check installed Node.js version
   ansible.builtin.command: node --version
   register: node_version
@@ -41,7 +41,7 @@
     update_cache: yes
   when: ansible_os_family == "Debian" and not node_installed
 
-# --- 3. App user and directory ----------------------------------------------
+# --- 3. App user and directory ------------------
 - name: Create system user {{ app_user }}
   ansible.builtin.user:
     name: "{{ app_user }}"
@@ -57,7 +57,7 @@
     group: "{{ app_user }}"
     mode: "0755"
 
-# --- 4. Deploy application files ---------------------------------------------
+# --- 4. Deploy application files ----------------
 - name: Copy application files to {{ app_dir }}
   ansible.builtin.copy:
     src: "{{ artifact_src }}{{ item }}"
@@ -84,7 +84,7 @@
     group: "{{ app_user }}"
     recurse: yes
 
-# --- 5. systemd service ------------------------------------------------------
+# --- 5. systemd service -------------------------
 - name: Install systemd unit for {{ app_name }}
   ansible.builtin.template:
     src: todo-api.service.j2
@@ -104,7 +104,7 @@
     enabled: yes
     state: started
 
-# --- 6. Verify ---------------------------------------------------------------
+# --- 6. Verify ----------------------------------
 - name: Wait for port {{ app_port }} to open
   ansible.builtin.wait_for:
     port: "{{ app_port }}"

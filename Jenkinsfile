@@ -1,11 +1,11 @@
-// =============================================================================
+// ===============================================
 // Jenkinsfile — Declarative CI pipeline for todo-api
-// -----------------------------------------------------------------------------
+// -----------------------------------------------
 // Flow: Checkout -> Env Info -> Install -> Test -> Build & Package -> Archive
 //       -> Docker Build (optional)
 // Requirements on the agent: git, Node.js 18+ and npm (install Node on the
 // agent or use the NodeJS plugin). Docker is optional.
-// =============================================================================
+// ===============================================
 
 pipeline {
     agent any
@@ -35,7 +35,7 @@ pipeline {
 
     stages {
 
-        // ---------------------------------------------------------------------
+        // ---------------------------------------
         stage('Checkout') {
             steps {
                 echo "==> Checking out source code..."
@@ -49,7 +49,7 @@ pipeline {
             }
         }
 
-        // ---------------------------------------------------------------------
+        // ---------------------------------------
         stage('Environment Info') {
             steps {
                 echo "==> Tool versions on this agent:"
@@ -58,7 +58,7 @@ pipeline {
             }
         }
 
-        // ---------------------------------------------------------------------
+        // ---------------------------------------
         stage('Install Dependencies') {
             steps {
                 echo "==> Installing dependencies with npm ci..."
@@ -69,7 +69,7 @@ pipeline {
             }
         }
 
-        // ---------------------------------------------------------------------
+        // ---------------------------------------
         // CI enhancement #1: automated tests. A failing test fails the build.
         stage('Test') {
             steps {
@@ -83,7 +83,7 @@ pipeline {
             }
         }
 
-        // ---------------------------------------------------------------------
+        // ---------------------------------------
         // CI enhancement #2: versioned artifact named after the build number.
         stage('Build & Package') {
             steps {
@@ -97,7 +97,7 @@ pipeline {
             }
         }
 
-        // ---------------------------------------------------------------------
+        // ---------------------------------------
         stage('Archive Artifacts') {
             steps {
                 echo "==> Archiving build artifact..."
@@ -105,7 +105,7 @@ pipeline {
             }
         }
 
-        // ---------------------------------------------------------------------
+        // ---------------------------------------
         // Optional: only runs if Docker exists on the agent. Never fails the build.
         stage('Docker Build (optional)') {
             steps {
@@ -121,9 +121,9 @@ pipeline {
         }
     }
 
-    // -------------------------------------------------------------------------
+    // -------------------------------------------
     // Global post actions
-    // -------------------------------------------------------------------------
+    // -------------------------------------------
     post {
         always {
             echo "==> Pipeline finished with status: ${currentBuild.currentResult}"

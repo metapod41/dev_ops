@@ -1,15 +1,15 @@
-# =============================================================================
+# ================================================
 # Dockerfile — multi-stage build for todo-api
-# -----------------------------------------------------------------------------
+# ------------------------------------------------
 # Why multi-stage? Stage 1 installs ALL dependencies (including Jest and
 # Supertest) and runs the tests, so a broken build never produces an image.
 # Stage 2 starts from a clean base and installs only production dependencies,
 # then copies just the files the app needs to run. Dev tools, tests and the
 # npm cache are left behind in stage 1, so the final image is smaller and has
 # less attack surface.
-# =============================================================================
+# ================================================
 
-# ---------- Stage 1: install deps + run tests ----------
+# ---------- Stage 1: install deps + run tests ---
 FROM node:18-alpine AS build
 WORKDIR /app
 
@@ -20,7 +20,7 @@ RUN npm ci
 COPY . .
 RUN npm test
 
-# ---------- Stage 2: slim runtime image ----------
+# ---------- Stage 2: slim runtime image ---------
 FROM node:18-alpine
 WORKDIR /app
 ENV NODE_ENV=production \
