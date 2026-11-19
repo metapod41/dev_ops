@@ -1,12 +1,9 @@
 ---
-# Playbook: install Node.js 18 and deploy todo-api as a systemd service.
-# Run:  ansible-playbook -i inventory.ini playbook.yml --ask-become-pass
 - name: Deploy todo-api
   hosts: app_servers
   become: yes
   gather_facts: yes
-
-  # Playbook-level variable (overrides the role default)
+  
   vars:
     app_port: 3000
 
