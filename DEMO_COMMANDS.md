@@ -12,7 +12,7 @@ Screenshot names refer to the checklist in `README.md`.
 ```bash
 npm install && npm test && npm start
 ```
-**Expected:** `Tests: 17 passed, 17 total`, then `🚀 Todo API running at http://localhost:3000`. Leave it running and use a second terminal:
+**Expected:** `Tests: 19 passed, 19 total`, then `🚀 Todo API running at http://localhost:3000`. Leave it running and use a second terminal:
 
 ```bash
 curl localhost:3000/todos ; curl -X POST localhost:3000/todos -H "Content-Type: application/json" -d '{"title":"Learn DevOps"}'
@@ -26,7 +26,7 @@ curl localhost:3000/todos ; curl -X POST localhost:3000/todos -H "Content-Type: 
 ```bash
 docker build -t todo-api:latest . && docker run -d -p 3000:3000 --name todo todo-api:latest && curl localhost:3000/health
 ```
-**Expected:** the build log shows the test stage (`17 passed`), then a container ID, then `{"status":"UP","uptime":...,"timestamp":"..."}`. After about 30 s, `docker ps` shows `(healthy)`.
+**Expected:** the build log shows the test stage (`19 passed`), then a container ID, then `{"status":"UP","uptime":...,"timestamp":"..."}`. After about 30 s, `docker ps` shows `(healthy)`.
 
 ```bash
 docker images todo-api ; docker rm -f todo

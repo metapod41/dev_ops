@@ -21,7 +21,7 @@ A small in-memory Todo / Task REST API (Node.js 18 + Express). It is built, test
 ├── app.js                     # Express app + routes (exported, no listen)
 ├── server.js                  # Entry point: listens on PORT (default 3000)
 ├── data/todos.js              # In-memory store + helper functions
-├── __tests__/api.test.js      # Jest + Supertest tests (17 tests)
+├── __tests__/api.test.js      # Jest + Supertest tests (19 tests)
 ├── package.json / package-lock.json
 ├── Jenkinsfile                # Declarative CI pipeline
 ├── .github/workflows/ci.yml   # GitHub Actions CI
@@ -46,6 +46,7 @@ A small in-memory Todo / Task REST API (Node.js 18 + Express). It is built, test
 |---|---|---|---|---|
 | GET | `/` | Welcome message + endpoint list | 200 | — |
 | GET | `/todos` | List all todos | 200 | — |
+| GET | `/todos/stats` | Count of total / completed / pending todos | 200 | — |
 | GET | `/todos/:id` | Get one todo | 200 | 404 |
 | POST | `/todos` | Create a todo, body `{ "title": "..." }` | 201 | 400 |
 | PATCH | `/todos/:id/toggle` | Flip `completed` | 200 | 404 |
@@ -64,6 +65,9 @@ $ curl localhost:3000/todos
 [{"id":1,"title":"Set up Git repository","completed":true},
  {"id":2,"title":"Write Jenkins pipeline","completed":false},
  {"id":3,"title":"Deploy to Kubernetes","completed":false}]
+
+$ curl localhost:3000/todos/stats
+{"total":3,"completed":1,"pending":2}
 
 $ curl localhost:3000/todos/1
 {"id":1,"title":"Set up Git repository","completed":true}
@@ -133,7 +137,7 @@ Checkout → Environment Info → Install Dependencies (`npm ci`) → Test → B
 ### CI enhancements chosen
 | # | Enhancement | Where | Why |
 |---|---|---|---|
-| 1 | **Automated tests in CI** | `Test` stage, `npm test` (17 Jest + Supertest tests) | A broken route fails the build before anything is packaged. |
+| 1 | **Automated tests in CI** | `Test` stage, `npm test` (19 Jest + Supertest tests) | A broken route fails the build before anything is packaged. |
 | 2 | **Versioned build artifacts** | `Build & Package` + `archiveArtifacts` with fingerprinting | Every build produces `todo-api-<build#>.tar.gz`, so any release can be traced and re-deployed. |
 | 3 | **GitHub Actions CI** | `.github/workflows/ci.yml` | Runs the tests and a Docker build on every push/PR to any branch, including feature branches that Jenkins doesn't watch. |
 
@@ -230,7 +234,7 @@ Environment variables are only read when a pod starts, so a restart is needed af
 
 ## 7. Resume lines
 
-- Built a Node.js/Express REST API with 17 automated Jest + Supertest tests and a **Jenkins** declarative pipeline (poll SCM, `npm ci`, test, versioned `.tar.gz` artifacts) plus **GitHub Actions** CI on every push and PR.
+- Built a Node.js/Express REST API with 19 automated Jest + Supertest tests and a **Jenkins** declarative pipeline (poll SCM, `npm ci`, test, versioned `.tar.gz` artifacts) plus **GitHub Actions** CI on every push and PR.
 - Automated server setup with an **Ansible** role that installs Node.js, deploys the app as a **systemd** service and verifies it with health checks, using handlers for idempotent restarts.
 - Containerised the app with a **multi-stage Docker** build (tests run at build time, slim non-root runtime image, HEALTHCHECK).
 - Deployed to **Kubernetes** (Minikube) with a ConfigMap, liveness/readiness probes, a zero-downtime RollingUpdate strategy, horizontal scaling (3 → 5 → 2 replicas) and a demonstrated `kubectl rollout undo` rollback.
