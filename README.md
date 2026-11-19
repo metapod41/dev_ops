@@ -115,6 +115,7 @@ npm run dev      # auto-restart on file changes (node --watch)
 ### Git workflow
 - `main`: stable branch. Jenkins builds this one.
 - `feature/hello-endpoint`: the `GET /hello` endpoint and its tests were built here, then merged into `main` with `git merge --no-ff`, so the merge commit shows in history.
+- `feature/todo-stats`: the `GET /todos/stats` endpoint was merged through **pull request #1** on GitHub. GitHub Actions ran on the PR (2 checks passed) before it was merged into `main`.
 - Check the history with `git log --oneline --graph --all`.
 
 ### Jenkins setup
@@ -214,13 +215,15 @@ Environment variables are only read when a pod starts, so a restart is needed af
 
 | # | What it shows | File |
 |---|---|---|
-| C1-1 | Git history with both branches and the `--no-ff` merge (`git log --oneline --graph --all`) | `screenshots/c1-1-git-history.png` |
+| C1-1 | Git history: both feature branches, the `--no-ff` merge and the PR #1 merge (`git log --oneline --graph --all`) | `screenshots/c1-1-git-history.png` |
 | C1-2 | Jenkins job configuration (Pipeline from SCM, Poll SCM) | `screenshots/c1-2-jenkins-config.png` |
 | C1-3 | Jenkins console output of a successful build | `screenshots/c1-3-console-output.png` |
 | C1-3b | Jenkins Stage View: every stage green | `screenshots/c1-3b-stage-view.png` |
 | C1-4 | Archived artifact `todo-api-<n>.tar.gz` on the build page | `screenshots/c1-4-artifact.png` |
 | C1-5 | Tests passing (Jenkins Test stage or `npm test`) | `screenshots/c1-5-tests-passing.png` |
 | C1-6 | GitHub Actions run (green) | `screenshots/c1-6-actions-run.png` |
+| C1-7 | Pull request #1 (`feature/todo-stats` → `main`): merged, 2 checks passed | `screenshots/c1-7-pull-request.png` |
+| C1-7b | Pull request #1: files changed (diff) | `screenshots/c1-7b-pr-files.png` |
 | C2-1 | Ansible playbook run with `ok/changed` recap | `screenshots/c2-1-ansible-run.png` |
 | C2-2 | `docker build` output and `docker images` | `screenshots/c2-2-docker-build.png` |
 | C2-3 | `kubectl get pods` before scaling (3 pods) | `screenshots/c2-3-pods-before-scale.png` |
