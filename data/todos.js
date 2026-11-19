@@ -63,4 +63,13 @@ function toggleTodo(id) {
   return todo;
 }
 
-module.exports = { getAllTodos, getTodoById, addTodo, toggleTodo };
+/**
+ * Count todos by status.
+ * @returns {{total:number, completed:number, pending:number}}
+ */
+function getStats() {
+  const completed = todos.filter((todo) => todo.completed).length;
+  return { total: todos.length, completed, pending: todos.length - completed };
+}
+
+module.exports = { getAllTodos, getTodoById, addTodo, toggleTodo, getStats };

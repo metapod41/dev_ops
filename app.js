@@ -8,7 +8,7 @@
  */
 
 const express = require('express');
-const { getAllTodos, getTodoById, addTodo, toggleTodo } = require('./data/todos');
+const { getAllTodos, getTodoById, addTodo, toggleTodo, getStats } = require('./data/todos');
 
 const app = express();
 
@@ -30,6 +30,7 @@ app.get('/', (req, res) => {
     message: 'Welcome to the Todo API!',
     endpoints: {
       'GET /todos': 'List all todos',
+      'GET /todos/stats': 'Count of total, completed and pending todos',
       'GET /todos/:id': 'Get a single todo by ID',
       'POST /todos': 'Create a todo. Body: { "title": "..." }',
       'PATCH /todos/:id/toggle': 'Toggle the completed flag of a todo',
@@ -50,6 +51,15 @@ app.get('/', (req, res) => {
  */
 app.get('/todos', (req, res) => {
   res.json(getAllTodos());
+});
+
+/**
+ * GET /todos/stats
+ * Return how many todos exist, how many are completed and how many are pending.
+ * Declared before /todos/:id so "stats" is not treated as an id.
+ */
+app.get('/todos/stats', (req, res) => {
+  res.json(getStats());
 });
 
 /**

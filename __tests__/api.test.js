@@ -42,6 +42,24 @@ describe('GET /todos', () => {
   });
 });
 
+describe('GET /todos/stats', () => {
+  it('returns total, completed and pending counts that add up', async () => {
+    const res = await request(app).get('/todos/stats');
+    expect(res.statusCode).toBe(200);
+    expect(res.body.total).toBe(res.body.completed + res.body.pending);
+    const list = await request(app).get('/todos');
+    expect(res.body.total).toBe(list.body.length);
+  });
+
+  it('updates the counts after a new todo is added', async () => {
+    const before = (await request(app).get('/todos/stats')).body;
+    await request(app).post('/todos').send({ title: 'Count me' });
+    const after = (await request(app).get('/todos/stats')).body;
+    expect(after.total).toBe(before.total + 1);
+    expect(after.pending).toBe(before.pending + 1);
+  });
+});
+
 describe('GET /todos/:id', () => {
   it('returns a single todo by id', async () => {
     const res = await request(app).get('/todos/1');
